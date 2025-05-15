@@ -36,7 +36,7 @@ def rss_ingest(rss_url: str, collection_name: str):
             published_date = published
         
         doc = {
-            "id": str(uuid.uuid5(uuid.NAMESPACE_URL, link)),  # valid UUID from URL
+            "id": str(uuid.uuid5(uuid.NAMESPACE_URL, link)),  
             "text": text,
             "title": title,
             "link": link,

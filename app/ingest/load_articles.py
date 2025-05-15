@@ -3,9 +3,9 @@ import uuid
 import requests
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()  # This will load environment variables from your .env file
-from app.utils.jina_embed import get_embedding  # Jina embedding helper
+
+load_dotenv()  
+from app.utils.jina_embed import get_embedding  
 
 QDRANT_URL = os.getenv("QDRANT_URL")
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
@@ -17,7 +17,7 @@ def create_collection_if_not_exists():
     headers = {"api-key": QDRANT_API_KEY, "Content-Type": "application/json"}
     data = {
         "vectors": {
-            "size": 768,  # Jina V2 base is 768-dim
+            "size": 768, 
             "distance": "Cosine"
         }
     }
@@ -39,7 +39,7 @@ def upload_to_qdrant(vectors):
         print("❌ Upload error:", str(e))
 
 def ingest_articles():
-    # Example hardcoded articles
+    
     articles = [
         {
             "title": "Global Markets Surge",
@@ -56,11 +56,11 @@ def ingest_articles():
     vectors = []
 
     for article in articles:
-        embedding = get_embedding(article["text"])  # Call Jina to get embeddings
+        embedding = get_embedding(article["text"]) 
         if embedding:
             vectors.append({
-                "id": str(uuid.uuid4()),  # Unique ID
-                "vector": embedding,      # Jina's embedding
+                "id": str(uuid.uuid4()),  
+                "vector": embedding,     
                 "payload": {
                     "title": article["title"],
                     "text": article["text"],
@@ -68,8 +68,8 @@ def ingest_articles():
                 }
             })
 
-    create_collection_if_not_exists()  # Ensure the Qdrant collection exists
-    upload_to_qdrant(vectors)         # Upload vectors to Qdrant
+    create_collection_if_not_exists() 
+    upload_to_qdrant(vectors)        
 
 if __name__ == "__main__":
     ingest_articles()

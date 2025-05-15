@@ -2,8 +2,8 @@ import os
 import requests
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()  # This will load environment variables from your .env file
+
+load_dotenv() 
 
 JINA_API_KEY = os.getenv("JINA_API_KEY")
 JINA_EMBEDDING_ENDPOINT = "https://api.jina.ai/v1/embeddings"

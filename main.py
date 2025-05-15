@@ -3,23 +3,23 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
-# Import your redis client and routes
-from app.utils.redis_client import redis_client
-from app.routes.chat import chat_bp  # We'll make this next
 
-# Load environment variables from .env
+from app.utils.redis_client import redis_client
+from app.routes.chat import chat_bp  
+
+
 load_dotenv()
 
 def create_app():
     app = Flask(__name__)
     
-    # Enable CORS (you can restrict origin in prod)
     
+    CORS(app)
 
-    # Register Blueprints
+    
     app.register_blueprint(chat_bp, url_prefix="/api/chat")
 
-    # Optional: verify Redis connection
+    
     try:
         redis_client.ping()
         print("✅ Redis connected")
